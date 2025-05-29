@@ -3,49 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ROUGE | Visual Artist Portfolio</title>
     <style>
-        .header{
-            background-color:rgb(156, 51, 51);
-            font-size: 300;
-            font-family:'Times New Roman', Times, serif;}
-        .subheader{
-            background-color:rgb(25, 25, 97);
-            font-size: 300;
-            font-family:'Times New Roman', Times, serif;}
-        .body{
-            background-color:rgb(25, 25, 97);
-            align-content: center;
-            font-size: 300;
-            font-family:'Times New Roman', Times, serif;}
-        .footer{
-          background-color:rgb(25, 25, 97);
-          font-size: 300;
-          font-family:'Times New Roman', Times, serif;}
-        .sub-footer{
-          background-color:rgb(6, 6, 117);
-          font-size: 300;
-          font-family:'Times New Roman', Times, serif;}
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--dark);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-align: center;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 1rem auto;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .artwork {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .artwork:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .artwork img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .artwork:hover img {
+            transform: scale(1.05);
+        }
+        
+        .artwork-info {
+            padding: 1.5rem;
+            background: white;
+        }
+        
+        .artwork-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .artwork-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-text {
+            flex: 2;
+        }
+        
+        .about-text h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .profile-img {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .profile-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            transition: border 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        footer a {
+            color: var(--light);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            margin: 1rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 style="text-align:center; color: lightpink;">Jowelle Abesamis</h1>
-    </div>
-    <div class="subheader">
-       <h2 style="text-align: center; color: cornflowerblue;">Portfolio sample</h2>
-    </div>
-    <div class="body">
-        <img src="1.png" alt="first page"width="800" height="1100">
-        <img src="2.png" alt="second page"width="800" height="1100"> 
-        <img src="3.png" alt="third page"width="800" height="1100">
-    </div>
-    <div class="footer">
-        <h3 style="text-align: center; color: rgb(212, 220, 235);"> end of portfolio</h3>
+    <header>
+        <h1>ROUGE</h1>
+        <p>Visual Artist | Illustrator | Pixel Artist</p>
+    </header>
+    
+    <nav>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Expressing Through Colors</h1>
+            <p>Discover my world of creativity and imagination</p>
         </div>
     </div>
-    <div class="sub-footer">
-        <h3 style="text-align: center; color: rgb(212, 220, 235);"> hehe</h3>
+    
+    <div class="container">
+        <section id="gallery">
+            <h2>My Artworks</h2>
+            <div class="gallery">
+                <div class="artwork">
+                    <img src="https://scontent.cdninstagram.com/v/t51.29350-15/428923059_1234567890123456_1234567890123456789_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=111&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-ABCDEFG&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MTIzNDU2Nzg5MDEyMzQ1Ng%3D%3D.2-ccb7-5&oh=00_AfABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&oe=12345678&_nc_sid=123abc" alt="Digital Art">
+                    <div class="artwork-info">
+                        <h3>A little try at Digital Art</h3>
+                        <p>Medibang Paint Pro</p>
+                    </div>
+                </div>
+                
+                <div class="artwork">
+                    <img src="https://scontent.cdninstagram.com/v/t51.29350-15/428923060_1234567890123456_1234567890123456789_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=111&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-ABCDEFG&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MTIzNDU2Nzg5MDEyMzQ1Ng%3D%3D.2-ccb7-5&oh=00_AfABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&oe=12345678&_nc_sid=123abc" alt="Monet Study">
+                    <div class="artwork-info">
+                        <h3>Claude Monet Painting Study</h3>
+                        <p>Watercolor and Gouache</p>
+                    </div>
+                </div>
+                
+                <div class="artwork">
+                    <img src="https://scontent.cdninstagram.com/v/t51.29350-15/428923061_1234567890123456_1234567890123456789_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=111&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-ABCDEFG&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MTIzNDU2Nzg5MDEyMzQ1Ng%3D%3D.2-ccb7-5&oh=00_AfABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&oe=12345678&_nc_sid=123abc" alt="Kiki's Delivery Service">
+                    <div class="artwork-info">
+                        <h3>Kiki's Delivery Service Fan-art</h3>
+                        <p>Acrylic Marker</p>
+                    </div>
+                </div>
+                
+                <div class="artwork">
+                    <img src="https://scontent.cdninstagram.com/v/t51.29350-15/428923062_1234567890123456_1234567890123456789_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=111&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-ABCDEFG&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MTIzNDU2Nzg5MDEyMzQ1Ng%3D%3D.2-ccb7-5&oh=00_AfABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&oe=12345678&_nc_sid=123abc" alt="Color Study">
+                    <div class="artwork-info">
+                        <h3>Some Color Study</h3>
+                        <p>Traditional Art, Markers</p>
+                    </div>
+                </div>
+                
+                <div class="artwork">
+                    <img src="https://scontent.cdninstagram.com/v/t51.29350-15/428923063_1234567890123456_1234567890123456789_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=111&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-ABCDEFG&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MTIzNDU2Nzg5MDEyMzQ1Ng%3D%3D.2-ccb7-5&oh=00_AfABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&oe=12345678&_nc_sid=123abc" alt="Pixel Art">
+                    <div class="artwork-info">
+                        <h3>Pixel Art project</h3>
+                        <p>Made in Aseprite</p>
+                    </div>
+                </div>
+                
+                <div class="artwork">
+                    <img src="https://scontent.cdninstagram.com/v/t51.29350-15/428923064_1234567890123456_1234567890123456789_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=111&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-ABCDEFG&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MTIzNDU2Nzg5MDEyMzQ1Ng%3D%3D.2-ccb7-5&oh=00_AfABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&oe=12345678&_nc_sid=123abc" alt="Doodle Arts">
+                    <div class="artwork-info">
+                        <h3>Doodle Arts</h3>
+                        <p>Scribbler Pen Set</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Growing up, seeing different colors inspired me to be an artist. Although some days may be mundane, it never stopped me from seeing the good things in life. Being an artist means being understandable of emotions and also facing burnouts.</p>
+                    
+                    <p>Albeit not really starting as a good watercolor and marker user at first, I learned so much via books and experiences. Majority of my inspirations came from range of retro drawings, colorful doodles, impressionism/post-impressionism, and old-school anime.</p>
+                    
+                    <p>Oh, and sometimes, I do some pixel art and other digital animations, which are what I am currently trying to apply to some of my stuff.</p>
+                    
+                    <h3>My Principles</h3>
+                    <p>There are so many ways to consider when making art, such as how you start and how you end. At the process, never leave it as it is if you feel like there's something good to add on the concept.</p>
+                    
+                    <p>Making art is like building a structure, you first need to figure out its mould first before the final appearance or aesthetic.</p>
+                </div>
+                
+                <div class="profile-img">
+                    <img src="https://scontent.cdninstagram.com/v/t51.29350-15/428923065_1234567890123456_1234567890123456789_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=111&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-ABCDEFG&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MTIzNDU2Nzg5MDEyMzQ1Ng%3D%3D.2-ccb7-5&oh=00_AfABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&oe=12345678&_nc_sid=123abc" alt="Artist Profile">
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <div class="contact-form">
+                <form action="https://formspree.io/f/your-form-id" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
     </div>
+    
+    <footer>
+        <p>&copy; 2023 ROUGE. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/yourusername/" target="_blank">Instagram</a>
+            <a href="https://www.behance.net/yourusername" target="_blank">Behance</a>
+            <a href="https://www.artstation.com/yourusername" target="_blank">ArtStation</a>
+        </div>
+    </footer>
 </body>
 </html>
